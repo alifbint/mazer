@@ -1,0 +1,24 @@
+@use "sass:meta";
+@use "bootstrap-variables";
+
+// Perfect Scrollbar
+@include meta.load-css("perfect-scrollbar/css/perfect-scrollbar");
+
+// Bootstrap, configured with Mazer's variables
+@include meta.load-css("bootstrap/scss/bootstrap", $with: meta.module-variables("bootstrap-variables"));
+
+// Bootstrap Icons
+@include meta.load-css("bootstrap-icons/font/bootstrap-icons", $with: (
+    "bootstrap-icons-font-src": url('~bootstrap-icons/font/fonts/bootstrap-icons.woff2') format("woff"),
+));
+
+// Fix icon placement
+body .bi::before, [class^=bi-]::before, [class*=" bi-"]::before {
+    vertical-align: sub;
+}
+
+// Fonts
+@include meta.load-css("fonts");
+
+// Mazer CSS
+@include meta.load-css("mazer");

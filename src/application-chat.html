@@ -1,0 +1,182 @@
+{% set title = 'Chat Application' %}
+{% set filename = 'application-chat.html' %}
+
+{% extends 'src/layouts/master.html' %}
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Chat Application</h3>
+                <p class="text-subtitle text-muted">An application for user to check Chat inbox.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chat Application</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section chat-application">
+        <div class="row">
+            <!-- Contacts -->
+            <div class="col-12 col-lg-4">
+                <div class="chat-app border-0 mb-4">
+                    <div class="card h-100 mb-0 d-flex flex-column">
+                        <div class="card-header">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-middle lh-1 bi-search"></i></span>
+                                <input type="search" class="form-control" id="chat-search" placeholder="Search contacts..."
+                                    aria-label="Search contacts">
+                            </div>
+                        </div>
+                        <div class="list-group list-group-flush flex-grow-1 overflow-y-auto" id="chat-contacts">
+                            <a href="#" class="list-group-item d-flex align-items-center gap-3 py-3 active"
+                                data-chat="alfy" data-name="Alfy" data-avatar="assets/static/images/faces/1.jpg" data-status="Online">
+                                <div class="avatar avatar-lg">
+                                    <img src="assets/static/images/faces/1.jpg" alt="Alfy">
+                                    <span class="avatar-status bg-success"></span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="mb-0 text-truncate text-reset">Alfy</h6>
+                                    <p class="mb-0 small text-truncate opacity-75" data-last-message>That's great! I like it so much :)</p>
+                                </div>
+                                <small class="opacity-75">10:24</small>
+                            </a>
+                            <a href="#" class="list-group-item d-flex align-items-center gap-3 py-3"
+                                data-chat="jane" data-name="Jane Smith" data-avatar="assets/static/images/faces/5.jpg" data-status="Online">
+                                <div class="avatar avatar-lg">
+                                    <img src="assets/static/images/faces/5.jpg" alt="Jane Smith">
+                                    <span class="avatar-status bg-success"></span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="mb-0 text-truncate text-reset">Jane Smith</h6>
+                                    <p class="mb-0 small text-truncate opacity-75" data-last-message>Can you review my pull request?</p>
+                                </div>
+                                <div class="text-end">
+                                    <small class="d-block opacity-75">09:12</small>
+                                    <span class="badge bg-primary rounded-pill" data-unread>2</span>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item d-flex align-items-center gap-3 py-3"
+                                data-chat="michael" data-name="Michael Brown" data-avatar="assets/static/images/faces/3.jpg" data-status="Last seen 1 hour ago">
+                                <div class="avatar avatar-lg">
+                                    <img src="assets/static/images/faces/3.jpg" alt="Michael Brown">
+                                    <span class="avatar-status bg-warning"></span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="mb-0 text-truncate text-reset">Michael Brown</h6>
+                                    <p class="mb-0 small text-truncate opacity-75" data-last-message>The meeting is moved to 3 PM</p>
+                                </div>
+                                <small class="opacity-75">Yesterday</small>
+                            </a>
+                            <a href="#" class="list-group-item d-flex align-items-center gap-3 py-3"
+                                data-chat="sarah" data-name="Sarah Wilson" data-avatar="assets/static/images/faces/6.jpg" data-status="Offline">
+                                <div class="avatar avatar-lg">
+                                    <img src="assets/static/images/faces/6.jpg" alt="Sarah Wilson">
+                                    <span class="avatar-status bg-secondary"></span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="mb-0 text-truncate text-reset">Sarah Wilson</h6>
+                                    <p class="mb-0 small text-truncate opacity-75" data-last-message>Thanks for the help!</p>
+                                </div>
+                                <small class="opacity-75">Mon</small>
+                            </a>
+                            <a href="#" class="list-group-item d-flex align-items-center gap-3 py-3"
+                                data-chat="david" data-name="David Lee" data-avatar="assets/static/images/faces/4.jpg" data-status="Offline">
+                                <div class="avatar avatar-lg">
+                                    <img src="assets/static/images/faces/4.jpg" alt="David Lee">
+                                    <span class="avatar-status bg-secondary"></span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="mb-0 text-truncate text-reset">David Lee</h6>
+                                    <p class="mb-0 small text-truncate opacity-75" data-last-message>See you tomorrow</p>
+                                </div>
+                                <small class="opacity-75">Sun</small>
+                            </a>
+                        </div>
+                        <p class="text-center text-muted small my-3 d-none" id="chat-no-contacts">No contacts found</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversation -->
+            <div class="col-12 col-lg-8">
+                <div class="chat-app border-0 mb-4">
+                    <div class="card h-100 mb-0 d-flex flex-column">
+                        <div class="card-header border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar avatar-lg">
+                                    <img src="assets/static/images/faces/1.jpg" alt="Alfy" id="chat-avatar">
+                                    <span class="avatar-status bg-success"></span>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-0" id="chat-name">Alfy</h5>
+                                    <small class="text-muted" id="chat-status">Online</small>
+                                </div>
+                                <button type="button" class="btn btn-light-secondary" aria-label="Voice call"><i class="bi bi-middle bi-telephone"></i></button>
+                                <button type="button" class="btn btn-light-secondary" aria-label="Video call"><i class="bi bi-middle bi-camera-video"></i></button>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-light-secondary" data-bs-toggle="dropdown" aria-expanded="false"
+                                        aria-label="More options"><i class="bi bi-middle bi-three-dots-vertical"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#">View profile</a></li>
+                                        <li><a class="dropdown-item" href="#">Mute notifications</a></li>
+                                        <li><a class="dropdown-item text-danger" href="#" id="chat-clear">Clear chat</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body flex-grow-1 overflow-y-auto pt-4" id="chat-messages">
+                            <div class="chat-content">
+                                <div class="text-center mb-4"><span class="badge bg-light-secondary">Today</span></div>
+                                <div class="chat">
+                                    <div class="chat-body">
+                                        <div class="chat-message">Hi Alfy, how can I help you?</div>
+                                    </div>
+                                </div>
+                                <div class="chat chat-left">
+                                    <div class="chat-body">
+                                        <div class="chat-message">I'm looking for the best admin dashboard template</div>
+                                        <div class="chat-message">With bootstrap certainly</div>
+                                    </div>
+                                </div>
+                                <div class="chat">
+                                    <div class="chat-body">
+                                        <div class="chat-message">I recommend you to use Mazer Dashboard</div>
+                                    </div>
+                                </div>
+                                <div class="chat chat-left">
+                                    <div class="chat-body">
+                                        <div class="chat-message">That's great! I like it so much :)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer border-top">
+                            <form class="d-flex align-items-center gap-2" id="chat-form" autocomplete="off">
+                                <button type="button" class="btn btn-light-secondary" aria-label="Attach file"><i class="bi bi-middle bi-paperclip"></i></button>
+                                <input type="text" class="form-control" id="chat-input" placeholder="Type your message..."
+                                    aria-label="Message">
+                                <button type="submit" class="btn btn-primary" aria-label="Send"><i class="bi bi-middle bi-send"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="assets/scss/pages/chat.scss">
+<link rel="stylesheet" href="assets/scss/widgets/chat.scss">
+{% endblock %}
+{% block js %}
+<script src="assets/static/js/pages/application-chat.js"></script>
+{% endblock %}

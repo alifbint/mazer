@@ -1,0 +1,185 @@
+{% set title = 'Sparkline' %}
+{% set filename = 'extra-component-sparkline.html' %}
+
+{% extends 'src/layouts/master.html' %}
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Sparkline</h3>
+                <p class="text-subtitle text-muted">Small, word-sized charts built with the <a href="https://apexcharts.com/docs/options/chart/sparkline/">ApexCharts sparkline</a> mode.
+                </p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Sparkline</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text-muted font-semibold">Revenue</h6>
+                                <h4 class="font-extrabold mb-0">$24.300</h4>
+                            </div>
+                            <span class="badge bg-light-success"><i class="bi bi-arrow-up-short bi-middle"></i> 12.5%</span>
+                        </div>
+                        <div class="sparkline mt-3" data-type="area" data-color="#435ebe" data-height="60"
+                            data-name="Revenue" data-values="25,66,41,59,25,44,12,36,9,21,45,53"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text-muted font-semibold">Orders</h6>
+                                <h4 class="font-extrabold mb-0">1.284</h4>
+                            </div>
+                            <span class="badge bg-light-success"><i class="bi bi-arrow-up-short bi-middle"></i> 4.1%</span>
+                        </div>
+                        <div class="sparkline mt-3" data-type="area" data-color="#198754" data-height="60"
+                            data-name="Orders" data-values="12,14,2,47,42,15,47,75,65,19,14,50"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text-muted font-semibold">Visitors</h6>
+                                <h4 class="font-extrabold mb-0">8.920</h4>
+                            </div>
+                            <span class="badge bg-light-danger"><i class="bi bi-arrow-down-short bi-middle"></i> 2.3%</span>
+                        </div>
+                        <div class="sparkline mt-3" data-type="bar" data-color="#55c6e8" data-height="60"
+                            data-name="Visitors" data-values="47,45,54,38,56,24,65,31,37,39,62,51"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="text-muted font-semibold">Bounce Rate</h6>
+                                <h4 class="font-extrabold mb-0">38%</h4>
+                            </div>
+                            <span class="badge bg-light-warning"><i class="bi bi-dash bi-middle"></i> 0.0%</span>
+                        </div>
+                        <div class="sparkline mt-3" data-type="line" data-color="#ffc107" data-height="60"
+                            data-name="Bounce Rate" data-values="38,42,35,40,37,44,39,36,41,38,40,38"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Line</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="sparkline" data-type="line" data-color="#435ebe" data-height="80"
+                            data-values="5,10,8,15,12,20,18,25,22,30"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Area</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="sparkline" data-type="area" data-color="#dc3545" data-height="80"
+                            data-values="30,25,28,20,22,15,18,10,12,5"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Bar</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="sparkline" data-type="bar" data-color="#198754" data-height="80"
+                            data-values="12,18,9,22,15,27,19,24,11,20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Inline Sparkline in Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-lg mb-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Sales</th>
+                                        <th>Change</th>
+                                        <th>Last 10 Days</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Mazer Pro</td>
+                                        <td>1.240</td>
+                                        <td><span class="text-success"><i class="bi bi-arrow-up-short bi-middle"></i> 8.2%</span></td>
+                                        <td><div class="sparkline" data-type="line" data-color="#198754" data-width="140" data-height="32"
+                                            data-values="10,12,11,14,13,16,15,18,17,20"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mazer Lite</td>
+                                        <td>860</td>
+                                        <td><span class="text-danger"><i class="bi bi-arrow-down-short bi-middle"></i> 3.4%</span></td>
+                                        <td><div class="sparkline" data-type="line" data-color="#dc3545" data-width="140" data-height="32"
+                                            data-values="20,18,19,16,17,15,16,13,14,12"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mazer Starter</td>
+                                        <td>2.015</td>
+                                        <td><span class="text-success"><i class="bi bi-arrow-up-short bi-middle"></i> 1.7%</span></td>
+                                        <td><div class="sparkline" data-type="bar" data-color="#435ebe" data-width="140" data-height="32"
+                                            data-values="8,12,9,14,10,13,11,15,12,14"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mazer Enterprise</td>
+                                        <td>312</td>
+                                        <td><span class="text-success"><i class="bi bi-arrow-up-short bi-middle"></i> 12.9%</span></td>
+                                        <td><div class="sparkline" data-type="area" data-color="#55c6e8" data-width="140" data-height="32"
+                                            data-values="3,5,4,8,6,9,12,10,14,16"></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block js %}
+<script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+<script src="assets/static/js/pages/sparkline.js"></script>
+{% endblock %}

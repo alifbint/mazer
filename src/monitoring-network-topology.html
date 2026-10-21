@@ -1,0 +1,287 @@
+{% set title = 'Network Topology' %}
+{% set filename = 'monitoring-network-topology.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Network Topology</h3>
+                <p class="text-subtitle text-muted">Draw your network and check device health at a glance</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Network Topology</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body py-3">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-primary text-nowrap" id="add-device">
+                            <i class="bi bi-plus-lg bi-middle"></i> Add device
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-primary text-nowrap" id="toggle-connect">
+                            <i class="bi bi-bezier2 bi-middle"></i> <span>Connect</span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-danger text-nowrap" id="delete-selected" disabled>
+                            <i class="bi bi-trash bi-middle"></i> Delete
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-secondary text-nowrap" id="fit-view">
+                            <i class="bi bi-arrows-fullscreen bi-middle"></i> Fit
+                        </button>
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <button type="button" class="btn btn-sm btn-light-primary text-nowrap" id="toggle-live">
+                            <i class="bi bi-pause-fill bi-middle"></i> <span>Pause</span>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-secondary text-nowrap" id="export-topology">
+                            <i class="bi bi-download bi-middle"></i> Export
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-secondary text-nowrap" id="import-topology">
+                            <i class="bi bi-upload bi-middle"></i> Import
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light-secondary text-nowrap" id="reset-topology">
+                            <i class="bi bi-arrow-counterclockwise bi-middle"></i> Reset
+                        </button>
+                        <input type="file" class="d-none" id="import-file" accept="application/json,.json">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-xl-9">
+                <div class="card">
+                    <div class="card-header d-flex flex-wrap align-items-center justify-content-between gap-2">
+                        <h4 class="card-title mb-0">Topology</h4>
+                        <span class="text-sm text-muted" id="mode-hint">Click a device for details &middot; drag to move &middot; Ctrl+click to select several</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="topology-alert"></div>
+                        <div id="topology"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-3">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h4 class="card-title mb-0">Status</h4>
+                        <small class="text-muted"><i class="bi bi-arrow-repeat bi-middle me-1"></i><span id="last-update">-</span></small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <h4 class="mb-0 text-success" id="count-up">0</h4>
+                                <span class="text-sm text-muted">Up</span>
+                            </div>
+                            <div class="col-4">
+                                <h4 class="mb-0 text-warning" id="count-warning">0</h4>
+                                <span class="text-sm text-muted">Warning</span>
+                            </div>
+                            <div class="col-4">
+                                <h4 class="mb-0 text-danger" id="count-down">0</h4>
+                                <span class="text-sm text-muted">Down</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Devices</h4>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <div class="list-group list-group-flush" id="device-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="device-modal" tabindex="-1" aria-labelledby="device-name" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="avatar avatar-lg">
+                        <img src="assets/static/images/topology/router.svg" alt="" id="device-icon">
+                    </div>
+                    <div>
+                        <h5 class="modal-title mb-0" id="device-name">-</h5>
+                        <span class="text-sm text-muted" id="device-ip">-</span>
+                        <span class="badge bg-success ms-1" id="device-status">Up</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="tab-overview" data-bs-toggle="tab" data-bs-target="#pane-overview" type="button" role="tab" aria-controls="pane-overview" aria-selected="true">
+                            <i class="bi bi-info-circle bi-middle me-1"></i> Overview
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-resource" data-bs-toggle="tab" data-bs-target="#pane-resource" type="button" role="tab" aria-controls="pane-resource" aria-selected="false">
+                            <i class="bi bi-cpu bi-middle me-1"></i> Resource
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="tab-ping" data-bs-toggle="tab" data-bs-target="#pane-ping" type="button" role="tab" aria-controls="pane-ping" aria-selected="false">
+                            <i class="bi bi-broadcast bi-middle me-1"></i> Ping
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content pt-4">
+                    <div class="tab-pane fade show active" id="pane-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+                        <table class="table table-borderless table-sm mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="text-muted">Type</td>
+                                    <td class="text-end" id="info-type">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">IP Address</td>
+                                    <td class="text-end" id="info-ip">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Model</td>
+                                    <td class="text-end" id="info-model">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Location</td>
+                                    <td class="text-end" id="info-location">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Uptime</td>
+                                    <td class="text-end" id="info-uptime">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Connected to</td>
+                                    <td class="text-end" id="info-links">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Last checked</td>
+                                    <td class="text-end" id="info-checked">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="pane-resource" role="tabpanel" aria-labelledby="tab-resource" tabindex="0">
+                        <div class="alert alert-light-secondary d-none" id="resource-unavailable">
+                            <i class="bi bi-info-circle bi-middle me-1"></i> This device does not report resource metrics.
+                        </div>
+                        <div id="resource-content">
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <div class="d-flex justify-content-center" id="gauge-cpu"></div>
+                                    <h6 class="text-muted font-semibold mb-0">CPU</h6>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-flex justify-content-center" id="gauge-memory"></div>
+                                    <h6 class="text-muted font-semibold mb-0">Memory</h6>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mt-4">
+                                <h6 class="mb-0">Interface Traffic</h6>
+                                <span class="text-sm text-muted" id="traffic-now">-</span>
+                            </div>
+                            <div id="chart-traffic"></div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pane-ping" role="tabpanel" aria-labelledby="tab-ping" tabindex="0">
+                        <div class="row text-center mb-3">
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <h5 class="mb-0" id="ping-last">-</h5>
+                                <span class="text-sm text-muted">Last</span>
+                            </div>
+                            <div class="col-6 col-md-3 mb-3 mb-md-0">
+                                <h5 class="mb-0" id="ping-avg">-</h5>
+                                <span class="text-sm text-muted">Average</span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <h5 class="mb-0" id="ping-minmax">-</h5>
+                                <span class="text-sm text-muted">Min / Max</span>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <h5 class="mb-0" id="ping-loss">-</h5>
+                                <span class="text-sm text-muted">Packet loss</span>
+                            </div>
+                        </div>
+                        <div id="chart-latency"></div>
+                        <div class="d-flex align-items-center justify-content-between mt-3 mb-2">
+                            <h6 class="mb-0">Recent replies</h6>
+                            <button type="button" class="btn btn-sm btn-light-primary text-nowrap" id="ping-now">
+                                <i class="bi bi-broadcast bi-middle"></i> Ping now
+                            </button>
+                        </div>
+                        <ul class="list-group font-monospace small" id="ping-log"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-danger me-auto" id="device-delete">
+                    <i class="bi bi-trash bi-middle"></i> Delete
+                </button>
+                <button type="button" class="btn btn-light-primary" id="device-edit">
+                    <i class="bi bi-pencil bi-middle"></i> Edit
+                </button>
+                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="device-form-modal" tabindex="-1" aria-labelledby="form-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" id="device-form" novalidate>
+            <div class="modal-header">
+                <h5 class="modal-title" id="form-title">Add device</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="form-name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="form-name" placeholder="SW-Floor-2" required>
+                </div>
+                <div class="form-group">
+                    <label for="form-type" class="form-label">Type</label>
+                    <select class="form-select" id="form-type" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="form-ip" class="form-label">IP address / hostname</label>
+                    <input type="text" class="form-control" id="form-ip" placeholder="10.0.30.1" required>
+                </div>
+                <div class="form-group">
+                    <label for="form-model" class="form-label">Model</label>
+                    <input type="text" class="form-control" id="form-model" placeholder="Optional">
+                </div>
+                <div class="form-group mb-0">
+                    <label for="form-location" class="form-label">Location</label>
+                    <input type="text" class="form-control" id="form-location" placeholder="Optional">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<!-- Need: vis-network, Apexcharts -->
+<script src="assets/extensions/vis-network/vis-network.min.js"></script>
+<script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+<script src="assets/static/js/pages/network-topology.js"></script>
+{% endblock %}

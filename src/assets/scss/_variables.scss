@@ -1,0 +1,169 @@
+// Mazer variables.
+//
+// Forwards Bootstrap's functions and variables, then adds the variables only
+// Mazer uses. Every Mazer stylesheet loads this with `@use "<path>/variables" as *;`.
+
+@forward "bootstrap/scss/functions";
+@forward "bootstrap-variables";
+
+@use "bootstrap/scss/functions" as *;
+@use "bootstrap-variables" as *;
+
+$dark-mode: false !default;
+
+$theme-colors-light: (
+  'primary': #ebf3ff,
+  'secondary': #E6EAEE,
+  'success': #D2FFE8 ,
+  'danger': #FFDEDE,
+  'warning': #fffdd8,
+  'info': #e6fdff,
+  'dark': #e3e3e3
+) !default;
+
+$alert-colors: (
+    primary: (
+        text-color: #fff,
+        background-color: #435ebe
+    ),
+    secondary: (
+        text-color: #383d41,
+        background-color: #ebeef3
+    ),
+    success: (
+        text-color: #fff,
+        background-color: #28ab55
+    ),
+    warning: (
+        text-color: #3f3a26,
+        background-color: #eaca4a,
+    ),
+    danger: (
+        text-color: #fff,
+        background-color: #f3616d,
+    ),
+    dark: (
+        text-color: #fff,
+        background-color: #454546,
+    ),
+    light: (
+        text-color: #818182,
+        background-color: #f9f9f9,
+    ),
+    info: (
+        text-color: #fff,
+        background-color: #56b6f7,
+    ),
+) !default;
+
+$assets-path: '/assets' !default;
+
+$btn-colors: (
+  primary: (
+      text-color: #fff,
+  ),
+  secondary: (
+      text-color: #fff,
+  ),
+  success: (
+      text-color: #fff,
+  ),
+  warning: (
+      text-color: #000,
+  ),
+  danger: (
+      text-color: #fff,
+  ),
+  dark: (
+      text-color: #fff,
+  ),
+  light: (
+      text-color: #000,
+  ),
+  info: (
+      text-color: #000,
+  ),
+) !default;
+
+$sidebar-bg: #fff !default;
+
+$sidebar-link-color: #25396f !default;
+
+$sidebar-link-hover-bg:         rgb(240, 241, 245) !default;
+
+$sidebar-link-hover-color:      #25396f !default;
+
+$sidebar-submenu-color:         $sidebar-link-color !default;
+
+$sidebar-submenu-hover-color:   $primary !default;
+
+$page-auth-bg:   $white !default;
+
+$page-auth-right-bg:   linear-gradient(90deg, #2d499d,#3f5491) !default;
+
+$page-error-bg:  #ebf3ff !default;
+$page-error-bg-dark: #151521 !default; // $body-bg of the dark theme
+
+$divider-bg:    #DFE3E7 !default;
+
+$divider-text-bg: $white !default;
+
+$swal-popup-bg:                 $sidebar-bg;
+
+$swal-popup-color:              inherit;
+
+$horizontal-header-bg: $white !default;
+
+$horizontal-navbar-bg: $primary !default;
+
+$horizontal-submenu-bg: $white !default;
+
+$horizontal-submenu-link-color: $gray-600 !default;
+
+$horizontal-submenu-link-hover-bg: #1b1b28 !default;
+
+$horizontal-submenu-link-hover-color: #187de4 !default;
+
+$horizontal-submenu-shadow-color: rgba(100,100,100,.1);
+
+$primary-text:            $blue-600 !default;
+
+$secondary-text:          $gray-600 !default;
+
+$success-text:            $green-600 !default;
+
+$info-text:               $cyan-700 !default;
+
+$warning-text:            $yellow-700 !default;
+
+$danger-text:             $red-600 !default;
+
+$light-text:              $gray-600 !default;
+
+$dark-text:               $gray-700 !default;
+
+$progress-border-radius-sm:            .2rem !default;
+
+$progress-border-radius-lg:            .3rem !default;
+
+$progress-border-radius-pill:          50rem !default;
+
+$form-textarea-title-bg:                $gray-200 !default;
+
+$card-title-font-size:              1.2rem !default;
+
+$modal-header-font-size:            1.1rem !default;
+
+$breadcrumb-margin-top:             1rem !default; // Mazer Variables
+
+$choices-bg:            $form-select-bg;
+
+$choices-border-color:  $form-select-border-color;
+
+$choices-input-color:   $body-color;
+
+$choices-dropdown-bg:   $form-select-bg;
+
+$choices-dropdown-color:    $choices-input-color;
+
+$choices-highlight-bg:      $card-bg;

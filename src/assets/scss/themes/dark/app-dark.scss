@@ -1,0 +1,24 @@
+@use "sass:meta";
+@use "../../bootstrap-variables";
+@use "../../variables" as *;
+// Applies the dark palette to the shared variable modules; must be loaded before anything that reads them
+@use "variables-dark";
+@use "root";
+
+html[data-bs-theme="dark"] {
+    // Bootstrap components, configured with the dark palette
+    @include meta.load-css("bootstrap-components", $with: meta.module-variables("bootstrap-variables"));
+
+    @include meta.load-css("../../fonts");
+    @include meta.load-css("../../mazer");
+    @include meta.load-css("mazer-dark");
+
+    // SweetAlert2 reads its colors from these custom properties
+    --swal2-background: #{$swal-popup-bg};
+    --swal2-color: #{$swal-popup-color};
+    --swal2-footer-border-color: #{$border-color};
+    --swal2-input-background: #{$input-bg};
+    --swal2-validation-message-background: #{$input-bg};
+    --swal2-validation-message-color: #{$swal-popup-color};
+    --swal2-timer-progress-bar-background: rgba(255, 255, 255, 0.7);
+}

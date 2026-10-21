@@ -1,0 +1,61 @@
+{% set title = 'Login (Boxed)' %}
+
+{% extends 'src/layouts/auth.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-100 m-0 py-5 px-3">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+        <div class="text-center mb-4">
+            <a href="index.html"><img src="assets/static/images/logo/logo.svg" alt="Logo" height="32"></a>
+        </div>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center mb-4">
+                    <h3 class="mb-2">Welcome back</h3>
+                    <p class="text-muted mb-0">Log in to continue to your dashboard.</p>
+                </div>
+
+                <div class="row g-2 mb-4">
+                    <div class="col-6">
+                        <a href="#" class="btn btn-outline-secondary w-100"><i class="bi bi-google bi-middle me-2"></i>Google</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-outline-secondary w-100"><i class="bi bi-github bi-middle me-2"></i>GitHub</a>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <hr class="flex-grow-1 my-0">
+                    <span class="text-muted text-sm">or log in with email</span>
+                    <hr class="flex-grow-1 my-0">
+                </div>
+
+                <form action="index.html">
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope bi-middle lh-1"></i></span>
+                            <input type="email" class="form-control" id="login-email" placeholder="name@example.com" autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <label for="login-password" class="form-label">Password</label>
+                            <a href="auth-forgot-password-boxed.html" class="text-sm mb-2">Forgot password?</a>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-shield-lock bi-middle lh-1"></i></span>
+                            <input type="password" class="form-control" id="login-password" placeholder="Enter your password" autocomplete="current-password">
+                        </div>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="login-remember">
+                        <label class="form-check-label" for="login-remember">Keep me logged in</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">Log in</button>
+                </form>
+            </div>
+        </div>
+        <p class="text-center text-muted mb-0">Don't have an account? <a href="auth-register-boxed.html" class="font-bold">Sign up</a></p>
+    </div>
+</div>
+{% endblock %}

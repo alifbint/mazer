@@ -1,0 +1,131 @@
+@use "../variables" as *;
+
+// Account profile with cover image (account-profile-cover.html)
+
+.profile-cover-card {
+    overflow: hidden;
+}
+
+.profile-cover {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+
+    @media (max-width: 767.98px) {
+        height: 140px;
+    }
+}
+
+.profile-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1.25rem;
+    // Pull the avatar up over the cover image
+    margin-top: -60px;
+    margin-bottom: 1.5rem;
+
+    .profile-identity {
+        flex: 1 1 240px;
+
+        .list-inline-item i {
+            margin-right: .25rem;
+        }
+    }
+
+    .profile-actions {
+        display: flex;
+        gap: .5rem;
+    }
+
+    @media (max-width: 767.98px) {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        .profile-identity {
+            flex-basis: auto;
+        }
+    }
+}
+
+// Must outrank `.avatar .avatar-status` from app.css and
+// `html[data-bs-theme="dark"] .avatar .avatar-status` from app-dark.css
+.profile-header .avatar.profile-avatar {
+    position: relative;
+
+    img {
+        // Ring in the card color, so it also works in dark mode
+        border: 5px solid var(--#{$prefix}card-bg);
+        object-fit: cover;
+    }
+
+    .avatar-status {
+        width: 1.25rem;
+        height: 1.25rem;
+        right: 12px;
+        bottom: 12px;
+        border: 3px solid var(--#{$prefix}card-bg);
+    }
+}
+
+.profile-stats {
+    border-top: 1px solid var(--#{$prefix}border-color);
+    padding-top: 1.25rem;
+
+    > div + div {
+        border-left: 1px solid var(--#{$prefix}border-color);
+    }
+}
+
+.profile-tabs .nav-link {
+    font-weight: 600;
+}
+
+.profile-info li {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .4rem 0;
+
+    i {
+        color: $primary;
+    }
+}
+
+.profile-progress-cell {
+    min-width: 120px;
+}
+
+.profile-timeline {
+    li {
+        position: relative;
+        display: flex;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+
+        // Line connecting the icons
+        &:not(:last-child)::before {
+            content: "";
+            position: absolute;
+            left: 1.125rem;
+            top: 2.5rem;
+            bottom: .25rem;
+            border-left: 2px solid var(--#{$prefix}border-color);
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.profile-timeline-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+}

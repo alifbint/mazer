@@ -1,0 +1,271 @@
+{% set title = 'Resource Monitor' %}
+{% set filename = 'monitoring-resource.html' %}
+
+{% extends 'src/layouts/master.html' %}
+
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Resource Monitor</h3>
+                <p class="text-subtitle text-muted">Live server resource usage and service health</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Resource Monitor</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-body py-4">
+                <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="stats-icon green" id="health-icon">
+                            <i class="bi bi-shield-check bi-middle lh-1 w-auto h-auto"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1" id="health-title">All systems operational</h5>
+                            <p class="text-muted mb-0">
+                                <span class="me-3"><i class="bi bi-hdd-rack bi-middle me-1"></i>srv-prod-01</span>
+                                <span class="me-3"><i class="bi bi-clock-history bi-middle me-1"></i>Uptime <span id="uptime">-</span></span>
+                                <span><i class="bi bi-arrow-repeat bi-middle me-1"></i>Updated <span id="last-update">-</span></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <select class="form-select form-select-sm w-auto" id="refresh-interval" aria-label="Refresh interval">
+                            <option value="1000">Every 1s</option>
+                            <option value="2000" selected>Every 2s</option>
+                            <option value="5000">Every 5s</option>
+                        </select>
+                        <button type="button" class="btn btn-sm btn-light-primary text-nowrap" id="toggle-live">
+                            <i class="bi bi-pause-fill bi-middle"></i> <span>Pause</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted font-semibold mb-1">CPU</h6>
+                                <p class="mb-0 text-sm">8 cores &middot; 3.6 GHz</p>
+                                <p class="mb-0 text-sm text-muted" id="cpu-detail">-</p>
+                            </div>
+                            <div id="gauge-cpu"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted font-semibold mb-1">Memory</h6>
+                                <p class="mb-0 text-sm" id="memory-detail">-</p>
+                                <p class="mb-0 text-sm text-muted">Swap 0.2 / 4 GB</p>
+                            </div>
+                            <div id="gauge-memory"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted font-semibold mb-1">Disk I/O</h6>
+                                <p class="mb-0 text-sm" id="disk-detail">-</p>
+                                <p class="mb-0 text-sm text-muted">NVMe 1 TB</p>
+                            </div>
+                            <div id="gauge-disk"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="card">
+                    <div class="card-body px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted font-semibold mb-1">Network</h6>
+                                <p class="mb-0 text-sm" id="network-detail">-</p>
+                                <p class="mb-0 text-sm text-muted">Link 1 Gbps</p>
+                            </div>
+                            <div id="gauge-network"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-xl-8">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h4 class="card-title mb-0">CPU &amp; Memory</h4>
+                        <span class="badge bg-light-secondary">Last 60 samples</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="chart-cpu-memory"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">System</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center mb-4">
+                            <div class="col-4">
+                                <h4 class="mb-0" id="load-1">-</h4>
+                                <span class="text-sm text-muted">Load 1m</span>
+                            </div>
+                            <div class="col-4">
+                                <h4 class="mb-0" id="load-5">-</h4>
+                                <span class="text-sm text-muted">Load 5m</span>
+                            </div>
+                            <div class="col-4">
+                                <h4 class="mb-0" id="load-15">-</h4>
+                                <span class="text-sm text-muted">Load 15m</span>
+                            </div>
+                        </div>
+                        <table class="table table-borderless table-sm mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="text-muted">Hostname</td>
+                                    <td class="text-end">srv-prod-01</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">OS</td>
+                                    <td class="text-end">Ubuntu 24.04.3 LTS</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Kernel</td>
+                                    <td class="text-end">6.8.0-60-generic</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">IP Address</td>
+                                    <td class="text-end">10.0.12.41</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">Processes</td>
+                                    <td class="text-end" id="process-count">-</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted">CPU Temp</td>
+                                    <td class="text-end" id="cpu-temp">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-xl-8">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h4 class="card-title mb-0">Network Traffic</h4>
+                        <span class="badge bg-light-secondary">Mbps</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="chart-network"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Storage</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="chart-storage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-xl-7">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Service Health</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Latency</th>
+                                        <th class="text-end">Uptime (30d)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="service-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Top Processes</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>PID</th>
+                                        <th>Name</th>
+                                        <th class="text-end">CPU</th>
+                                        <th class="text-end">MEM</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="process-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h4 class="card-title mb-0">Recent Events</h4>
+                        <span class="badge bg-light-primary" id="event-count">0 events</span>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group" id="event-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block js %}
+<!-- Need: Apexcharts -->
+<script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+<script src="assets/static/js/pages/resource-monitor.js"></script>
+{% endblock %}

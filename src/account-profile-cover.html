@@ -1,0 +1,331 @@
+{% set title = 'Account Profile' %}
+{% set filename = 'account-profile-cover.html' %}
+
+{% extends 'src/layouts/master.html' %}
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Account Profile</h3>
+                <p class="text-subtitle text-muted">Profile page with a cover image, stats and tabs</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <!-- Cover & summary -->
+        <div class="card profile-cover-card">
+            <div class="profile-cover" style="background-image: url('assets/static/images/samples/bg-mountain.jpg')"></div>
+            <div class="card-body pt-0">
+                <div class="profile-header">
+                    <div class="avatar avatar-3xl profile-avatar">
+                        <img src="assets/static/images/faces/2.jpg" alt="John Doe">
+                        <span class="avatar-status bg-success"></span>
+                    </div>
+                    <div class="profile-identity">
+                        <h3 class="mb-1">John Doe</h3>
+                        <p class="text-muted mb-2">Junior Software Engineer</p>
+                        <ul class="list-inline text-muted mb-0">
+                            <li class="list-inline-item"><i class="bi bi-middle bi-geo-alt"></i> Jakarta, Indonesia</li>
+                            <li class="list-inline-item"><i class="bi bi-middle bi-calendar3"></i> Joined March 2022</li>
+                        </ul>
+                    </div>
+                    <div class="profile-actions">
+                        <button type="button" class="btn btn-light-secondary"><i class="bi bi-middle bi-chat-dots"></i> Message</button>
+                        <a href="#edit-profile" class="btn btn-primary" data-profile-tab><i class="bi bi-middle bi-pencil"></i> Edit Profile</a>
+                    </div>
+                </div>
+
+                <div class="row profile-stats text-center">
+                    <div class="col-4">
+                        <h4 class="mb-0">24</h4>
+                        <span class="text-muted">Projects</span>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="mb-0">1.2k</h4>
+                        <span class="text-muted">Followers</span>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="mb-0">318</h4>
+                        <span class="text-muted">Following</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs profile-tabs mb-4" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="overview-tab" data-bs-toggle="tab" href="#overview" role="tab"
+                    aria-controls="overview" aria-selected="true">Overview</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="activity-tab" data-bs-toggle="tab" href="#activity" role="tab"
+                    aria-controls="activity" aria-selected="false">Activity</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="edit-profile-tab" data-bs-toggle="tab" href="#edit-profile" role="tab"
+                    aria-controls="edit-profile" aria-selected="false">Edit Profile</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Overview -->
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">About</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Frontend-focused engineer who enjoys building clean, accessible dashboards with Bootstrap and vanilla JavaScript.</p>
+                                <ul class="list-unstyled profile-info mb-0">
+                                    <li><i class="bi bi-middle lh-1 bi-envelope"></i> john.doe@example.net</li>
+                                    <li><i class="bi bi-middle lh-1 bi-telephone"></i> 083xxxxxxxxx</li>
+                                    <li><i class="bi bi-middle lh-1 bi-globe"></i> johndoe.dev</li>
+                                    <li><i class="bi bi-middle lh-1 bi-gift"></i> 12 August 1998</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Skills</h4>
+                            </div>
+                            <div class="card-body">
+                                <span class="badge bg-light-primary">JavaScript</span>
+                                <span class="badge bg-light-primary">Sass</span>
+                                <span class="badge bg-light-primary">Bootstrap</span>
+                                <span class="badge bg-light-info">Vite</span>
+                                <span class="badge bg-light-success">Node.js</span>
+                                <span class="badge bg-light-warning">Figma</span>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Profile completion</span>
+                                    <strong>80%</strong>
+                                </div>
+                                <div class="progress progress-primary">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-muted mt-2 mb-0">Add a bio and social links to complete your profile.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Projects</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-lg mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Project</th>
+                                                <th>Role</th>
+                                                <th>Progress</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Mazer Dashboard</td>
+                                                <td>Frontend</td>
+                                                <td class="profile-progress-cell">
+                                                    <div class="progress progress-sm progress-success">
+                                                        <div class="progress-bar" style="width: 100%" role="progressbar"
+                                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-success">Done</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobile Banking App</td>
+                                                <td>UI Engineer</td>
+                                                <td class="profile-progress-cell">
+                                                    <div class="progress progress-sm progress-primary">
+                                                        <div class="progress-bar" style="width: 65%" role="progressbar"
+                                                            aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-primary">In progress</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Company Website</td>
+                                                <td>Fullstack</td>
+                                                <td class="profile-progress-cell">
+                                                    <div class="progress progress-sm progress-warning">
+                                                        <div class="progress-bar" style="width: 30%" role="progressbar"
+                                                            aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td><span class="badge bg-warning">Review</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Recent Activity</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="profile-timeline list-unstyled mb-0">
+                                    <li>
+                                        <span class="profile-timeline-icon bg-light-primary"><i class="bi bi-middle lh-1 bi-git"></i></span>
+                                        <div>
+                                            <p class="mb-0">Pushed 4 commits to <strong>mazer/main</strong></p>
+                                            <small class="text-muted">2 hours ago</small>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="profile-timeline-icon bg-light-success"><i class="bi bi-middle lh-1 bi-check2-circle"></i></span>
+                                        <div>
+                                            <p class="mb-0">Completed task <strong>Upgrade Vite to v8</strong></p>
+                                            <small class="text-muted">Yesterday</small>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="profile-timeline-icon bg-light-warning"><i class="bi bi-middle lh-1 bi-chat-left-text"></i></span>
+                                        <div>
+                                            <p class="mb-0">Commented on <strong>Dark mode polish</strong></p>
+                                            <small class="text-muted">3 days ago</small>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity -->
+            <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="profile-timeline list-unstyled mb-0">
+                            <li>
+                                <span class="profile-timeline-icon bg-light-primary"><i class="bi bi-middle lh-1 bi-git"></i></span>
+                                <div>
+                                    <p class="mb-0">Pushed 4 commits to <strong>mazer/main</strong></p>
+                                    <small class="text-muted">Today, 10:24</small>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="profile-timeline-icon bg-light-success"><i class="bi bi-middle lh-1 bi-check2-circle"></i></span>
+                                <div>
+                                    <p class="mb-0">Completed task <strong>Upgrade Vite to v8</strong></p>
+                                    <small class="text-muted">Yesterday, 16:02</small>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="profile-timeline-icon bg-light-info"><i class="bi bi-middle lh-1 bi-person-plus"></i></span>
+                                <div>
+                                    <p class="mb-0">Started following <strong>Jane Smith</strong></p>
+                                    <small class="text-muted">2 days ago</small>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="profile-timeline-icon bg-light-warning"><i class="bi bi-middle lh-1 bi-chat-left-text"></i></span>
+                                <div>
+                                    <p class="mb-0">Commented on <strong>Dark mode polish</strong></p>
+                                    <small class="text-muted">3 days ago</small>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="profile-timeline-icon bg-light-danger"><i class="bi bi-middle lh-1 bi-bug"></i></span>
+                                <div>
+                                    <p class="mb-0">Reported issue <strong>Modal close button hover</strong></p>
+                                    <small class="text-muted">Last week</small>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit profile -->
+            <div class="tab-pane fade" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="#" method="get">
+                            <div class="row">
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" value="John Doe">
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="job-title" class="form-label">Job Title</label>
+                                    <input type="text" name="job_title" id="job-title" class="form-control" placeholder="Your Job Title" value="Junior Software Engineer">
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" value="john.doe@example.net">
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Your Phone" value="083xxxxxxxxx">
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="birthday" class="form-label">Birthday</label>
+                                    <input type="date" name="birthday" id="birthday" class="form-control" value="1998-08-12">
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select name="gender" id="gender" class="form-select">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="bio" class="form-label">Bio</label>
+                                    <textarea name="bio" id="bio" class="form-control" rows="3" placeholder="Tell something about yourself">Frontend-focused engineer who enjoys building clean, accessible dashboards with Bootstrap and vanilla JavaScript.</textarea>
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="website" class="form-label">Website</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-middle lh-1 bi-globe"></i></span>
+                                        <input type="text" name="website" id="website" class="form-control" placeholder="example.com" value="johndoe.dev">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="github" class="form-label">GitHub</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-middle lh-1 bi-github"></i></span>
+                                        <input type="text" name="github" id="github" class="form-control" placeholder="username">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="reset" class="btn btn-light-secondary">Reset</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="assets/scss/pages/account-profile.scss">
+{% endblock %}
+{% block js %}
+<script src="assets/static/js/pages/account-profile.js"></script>
+{% endblock %}

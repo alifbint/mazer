@@ -1,0 +1,8 @@
+@use "../variables" as *;
+
+.carousel-inner {
+    border-radius: .7rem;
+}
+.carousel-caption h5, .carousel-caption .h5 {
+    color: $carousel-caption-color
+}

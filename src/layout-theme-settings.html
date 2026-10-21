@@ -1,0 +1,143 @@
+{% set title = 'Theme Settings' %}
+{% set filename = 'layout-theme-settings.html' %}
+
+{% extends 'src/layouts/master.html' %}
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Theme Settings</h3>
+                <p class="text-subtitle text-muted">Customize the primary, background and text colors for light and dark mode. Saved in this browser.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Theme Settings</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-body d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div>
+                    <h6 class="mb-1">Theme mode</h6>
+                    <p class="text-muted mb-0">Colors below are applied to the theme they belong to.</p>
+                </div>
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    <div class="btn-group" role="group" aria-label="Theme mode">
+                        <input type="radio" class="btn-check" name="theme-mode" id="theme-mode-light" value="light" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="theme-mode-light"><i class="bi bi-sun bi-middle"></i> Light</label>
+                        <input type="radio" class="btn-check" name="theme-mode" id="theme-mode-dark" value="dark" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="theme-mode-dark"><i class="bi bi-moon bi-middle"></i> Dark</label>
+                    </div>
+                    <button type="button" class="btn btn-light-danger" id="reset-all-colors"><i class="bi bi-arrow-counterclockwise bi-middle"></i> Reset all colors</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for t in ['light', 'dark'] %}
+            <div class="col-12 col-lg-6">
+                <div class="card" data-theme-card="{{ t }}">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <h4 class="card-title mb-0">{{ 'Light' if t == 'light' else 'Dark' }} Mode Colors</h4>
+                        <span class="badge bg-primary d-none" data-active-badge>Active</span>
+                    </div>
+                    <div class="card-body">
+                        {% for field in [
+                            { 'key': 'primary', 'label': 'Primary color', 'help': 'Buttons, links, active menu, progress, form controls.' },
+                            { 'key': 'bodyBg', 'label': 'Page background', 'help': 'Background behind the content.' },
+                            { 'key': 'surfaceBg', 'label': 'Card & sidebar background', 'help': 'Cards, sidebar, modals, horizontal header.' },
+                            { 'key': 'textColor', 'label': 'Text color', 'help': 'Body text, form inputs, tables.' + (' Also the sidebar menu.' if t == 'dark' else '') },
+                            { 'key': 'headingColor', 'label': 'Heading color', 'help': 'Page and card titles.' + (' Also the sidebar menu.' if t == 'light' else '') }
+                        ] %}
+                        <div class="mb-4">
+                            <label class="form-label" for="{{ t }}-{{ field.key }}">{{ field.label }}</label>
+                            <div class="d-flex gap-2">
+                                <input type="text" class="form-control" id="{{ t }}-{{ field.key }}" maxlength="7" spellcheck="false"
+                                    autocomplete="off" data-coloris data-theme="{{ t }}" data-key="{{ field.key }}">
+                                <button type="button" class="btn btn-light-secondary" data-reset-theme="{{ t }}" data-reset-key="{{ field.key }}" title="Reset to default">
+                                    <i class="bi bi-arrow-counterclockwise bi-middle"></i>
+                                </button>
+                            </div>
+                            <small class="text-muted">{{ field.help }}</small>
+                        </div>
+                        {% endfor %}
+                        <button type="button" class="btn btn-light-secondary" data-reset-theme="{{ t }}">
+                            Reset {{ t }} colors
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Preview</h4>
+            </div>
+            <div class="card-body">
+                <h5>Heading example</h5>
+                <p>Body text example. <span class="text-muted">Muted text stays as is.</span></p>
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-outline-primary">Outline</button>
+                    <button type="button" class="btn btn-light-primary">Light</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                    <span class="badge bg-primary">Badge</span>
+                    <span class="badge bg-light-primary">Light badge</span>
+                    <a href="#">Text link</a>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="alert alert-light-primary">
+                            <i class="bi bi-info-circle bi-middle"></i> This is a light primary alert.
+                        </div>
+                        <div class="progress progress-primary mb-4">
+                            <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="preview-check" checked>
+                            <label class="form-check-label" for="preview-check">Checked checkbox</label>
+                        </div>
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" id="preview-switch" checked>
+                            <label class="form-check-label" for="preview-switch">Switch</label>
+                        </div>
+                        <input type="text" class="form-control mb-4" placeholder="Focus me to see the ring">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <ul class="nav nav-tabs mb-3" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" href="#">Active</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Tab</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Tab</a></li>
+                        </ul>
+                        <nav aria-label="Preview pagination">
+                            <ul class="pagination pagination-primary">
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            </ul>
+                        </nav>
+                        <div class="list-group">
+                            <span class="list-group-item active">Active item</span>
+                            <span class="list-group-item">Item</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="assets/extensions/@melloware/coloris/coloris.min.css">
+{% endblock %}
+{% block js %}
+<script src="assets/extensions/@melloware/coloris/umd/coloris.min.js"></script>
+<script src="assets/static/js/pages/theme-settings.js"></script>
+{% endblock %}

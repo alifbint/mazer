@@ -1,0 +1,112 @@
+/*
+* Mazer, Technology Innovations Bootstrap HTML5 Landing Page
+* 
+* File: app.scss
+*
+* If you want to edit the components, just go to _variables.scss
+*/
+
+/**
+
+====== TABLE OF CONTENTS =======
+1. Mixins
+2. Bootstrap Components Override 
+    2.1 Alert
+    2.2 Avatar
+    2.3 Badge
+    2.4 Buttons
+    2.5 Breadcrumb
+    2.6 Carousel
+    2.7 Card
+    2.8 Divider
+    2.9 Dropdowns
+    2.10 Forms
+    2.11 Modal
+    2.12 Sidebar
+    2.13 Navs
+    2.14 Navbar
+    2.15 Pagination
+    2.16 Table
+    2.17 Progress
+    2.18 Icons
+    2.19 Comment
+    2.20 Placeholder
+    2.21 Flag
+4. Pages
+    4.0 Layout
+    4.1 Auth
+    4.2 Error
+5. Utilities
+
+
+*/
+
+// 1. Mixins
+
+// 2. Bootstrap Components Override
+
+// - 2.1. Alert
+@use "components/alert";
+
+// - 2.2. Avatar
+@use "components/avatar";
+
+// - 2.3. Badge
+@use "components/badge";
+
+// - 2.4. Buttons
+@use "components/buttons";
+
+// - 2.5. breadcrumb
+@use "components/breadcrumb";
+
+// - 2.6. carousel
+@use "components/carousel";
+
+// - 2.7. card
+@use "components/card";
+
+// - 2.8. divider
+@use "components/divider";
+
+// - 2.9. dropdowns
+@use "components/dropdowns";
+
+// - 2.10. forms
+@use "components/forms";
+
+// - 2.11. modal
+@use "components/modal";
+
+// - 2.12. sidebar
+@use "components/sidebar";
+
+// - 2.13. navs
+@use "components/navs";
+
+// - 2.14. navbar
+@use "components/navbar";
+
+// - 2.15. pagination
+@use "components/pagination";
+
+// - 2.16. table
+@use "components/table";
+
+// - 2.17. progress
+@use "components/progress";
+
+// - 2.18. icons
+@use "components/icons";
+
+// - 2.19 Comment
+@use "components/comment";
+
+// - 2.20 Placeholder
+@use "components/placeholders";
+
+// - 4.0 Layout
+@use "layouts/main";
+
+// - 5.0 Utilities
+@use "utilities";

@@ -1,0 +1,118 @@
+{% set title = 'Moment Timezone' %}
+{% set filename = 'extra-component-moment-timezone.html' %}
+
+{% extends 'src/layouts/master.html' %}
+{% block content %}
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Moment Timezone</h3>
+                <p class="text-subtitle text-muted">Parse, convert and display dates in any time zone.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Moment Timezone</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <h4 class="card-title mb-0">World Clock</h4>
+                <span class="text-muted">
+                    <i class="bi bi-geo-alt bi-middle"></i> Your time zone: <strong id="guessed-zone"></strong>
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row g-3" id="world-clock"></div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Time Zone Converter</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="convert-datetime" class="form-label">Date &amp; time</label>
+                            <input type="datetime-local" id="convert-datetime" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="convert-from" class="form-label">From</label>
+                            <select id="convert-from" class="form-select"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="convert-to" class="form-label">To</label>
+                            <select id="convert-to" class="form-select"></select>
+                        </div>
+                        <div class="d-flex gap-2 mb-4">
+                            <button type="button" id="convert-now" class="btn btn-light-primary">
+                                <i class="bi bi-clock bi-middle"></i> Now
+                            </button>
+                            <button type="button" id="convert-swap" class="btn btn-light-secondary">
+                                <i class="bi bi-arrow-left-right bi-middle"></i> Swap
+                            </button>
+                        </div>
+                        <div class="p-3 border rounded bg-body-tertiary">
+                            <p class="mb-1 text-muted" id="convert-source"></p>
+                            <h5 class="mb-1" id="convert-result"></h5>
+                            <p class="mb-0" id="convert-diff"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <h4 class="card-title mb-0">Formatting</h4>
+                        <select id="format-zone" class="form-select form-select-sm w-auto"></select>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Output</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="format-table"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Usage</h4>
+            </div>
+            <div class="card-body">
+                <p>Load Moment.js first, then a Moment Timezone build that includes zone data.</p>
+                <pre class="bg-body-tertiary border p-3 rounded mb-0"><code>&lt;script src="assets/extensions/moment/min/moment.min.js"&gt;&lt;/script&gt;
+&lt;script src="assets/extensions/moment-timezone/builds/moment-timezone-with-data-10-year-range.min.js"&gt;&lt;/script&gt;
+
+moment.tz.guess()                                   // "Asia/Jakarta"
+moment().tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm z')
+moment.tz('2026-10-21 09:00', 'Asia/Jakarta').tz('America/New_York').format()</code></pre>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/extensions/moment/min/moment.min.js"></script>
+<script src="assets/extensions/moment-timezone/builds/moment-timezone-with-data-10-year-range.min.js"></script>
+<script src="assets/static/js/pages/moment-timezone.js"></script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% set title = 'Two-Factor Authentication' %}
+
+{% extends 'src/layouts/auth.html' %}
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-100 m-0 py-5 px-3">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+        <div class="text-center mb-4">
+            <a href="index.html"><img src="assets/static/images/logo/logo.svg" alt="Logo" height="32"></a>
+        </div>
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-light-primary p-3 mb-3">
+                        <i class="bi bi-shield-lock fs-3 bi-middle lh-1 w-auto h-auto"></i>
+                    </div>
+                    <h3 class="mb-2">Two-factor authentication</h3>
+                    <p class="text-muted mb-0">Enter the 6-digit code from your authenticator app or the code we sent to <span class="fw-bold">+62 ••• •••• 4821</span>.</p>
+                </div>
+
+                <form id="otp-form" action="index.html">
+                    <div class="mb-4">
+                        <label for="otp-1" class="form-label">Verification code</label>
+                        <div class="d-flex gap-2 justify-content-between" id="otp-inputs">
+                            <input type="text" class="form-control form-control-lg text-center fs-4 fw-bold px-0" id="otp-1" inputmode="numeric" maxlength="1" autocomplete="one-time-code" aria-label="Digit 1" required>
+                            <input type="text" class="form-control form-control-lg text-center fs-4 fw-bold px-0" inputmode="numeric" maxlength="1" aria-label="Digit 2" required>
+                            <input type="text" class="form-control form-control-lg text-center fs-4 fw-bold px-0" inputmode="numeric" maxlength="1" aria-label="Digit 3" required>
+                            <input type="text" class="form-control form-control-lg text-center fs-4 fw-bold px-0" inputmode="numeric" maxlength="1" aria-label="Digit 4" required>
+                            <input type="text" class="form-control form-control-lg text-center fs-4 fw-bold px-0" inputmode="numeric" maxlength="1" aria-label="Digit 5" required>
+                            <input type="text" class="form-control form-control-lg text-center fs-4 fw-bold px-0" inputmode="numeric" maxlength="1" aria-label="Digit 6" required>
+                        </div>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="otp-trust">
+                        <label class="form-check-label text-gray-600" for="otp-trust">Trust this device for 30 days</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm" id="otp-submit" disabled>Verify</button>
+                </form>
+
+                <p class="text-center text-muted mt-4 mb-0">
+                    Didn't receive a code?
+                    <button type="button" class="btn btn-link text-decoration-none p-0 align-baseline font-bold" id="otp-resend" disabled>Resend <span id="otp-countdown">(30s)</span></button>
+                </p>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <button type="button" class="btn btn-link text-decoration-none p-0 font-bold" id="recovery-toggle" aria-expanded="false" aria-controls="recovery-code">
+                        <i class="bi bi-life-preserver bi-middle me-1"></i>Use a recovery code instead
+                    </button>
+                </div>
+                <div class="collapse" id="recovery-code">
+                    <form action="index.html" class="mt-4">
+                        <label for="recovery-input" class="form-label">Recovery code</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-key bi-middle lh-1"></i></span>
+                            <input type="text" class="form-control" id="recovery-input" placeholder="xxxx-xxxx-xxxx" autocomplete="off" required>
+                        </div>
+                        <button type="submit" class="btn btn-light-primary w-100">Verify recovery code</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p class="text-center text-muted mb-0"><a href="auth-login-boxed.html" class="font-bold"><i class="bi bi-arrow-left bi-middle me-1"></i>Back to log in</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="assets/static/js/pages/auth-two-factor.js"></script>
+{% endblock %}

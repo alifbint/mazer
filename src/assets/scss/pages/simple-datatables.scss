@@ -1,0 +1,23 @@
+@use "../variables" as *;
+
+.datatable-wrapper.no-footer .datatable-container {
+	border-bottom: none;
+}
+
+.datatable-selector {
+	padding: $form-select-padding-y $form-select-indicator-padding $form-select-padding-y $form-select-padding-x;
+}
+
+.datatable-dropdown {
+	display: inline-flex;
+	align-items: center;
+}
+
+.datatable-dropdown label {
+	white-space: nowrap;
+	margin-left: 15px;
+}
+
+.page-item.active .page-link {
+	color: white !important;
+}
