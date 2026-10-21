@@ -28,6 +28,7 @@
 - [Struktur proyek](#struktur-proyek)
 - [Pengembangan dari upstream](#pengembangan-dari-upstream)
 - [Menambah halaman baru](#menambah-halaman-baru)
+- [Skill Claude Code (`mazer-ui`)](#skill-claude-code-mazer-ui)
 - [Lisensi & kredit](#lisensi--kredit)
 
 ## Instalasi
@@ -171,6 +172,44 @@ cd dist && grep -ohE '(src|href)="assets/[^"]+"' *.html \
 ```
 
 Panduan lebih rinci (aturan SCSS, styling ikon, upgrade library) ada di [`CLAUDE.md`](./CLAUDE.md). Panduan kontribusi: [`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
+## Skill Claude Code (`mazer-ui`)
+
+Repo ini menyertakan skill [`mazer-ui`](./.claude/skills/mazer-ui/SKILL.md) untuk [Claude Code](https://claude.com/claude-code). Skill ini berisi panduan membuat halaman, memilih class Mazer vs utilitas Bootstrap, memuat library, serta aturan SCSS dan dark mode. Referensi lengkapnya ada di `.claude/skills/mazer-ui/references/`.
+
+### Di dalam repo ini
+
+Tidak perlu instalasi. Claude Code otomatis memuat skill dari `.claude/skills/` saat dijalankan di root repo:
+
+```sh
+git clone git@github.com:alifbint/mazer.git
+cd mazer
+claude            # ketik /mazer-ui, atau skill dipakai otomatis saat relevan
+```
+
+### Untuk proyek lain (turunan Mazer)
+
+Salin foldernya ke proyek tujuan (berlaku untuk proyek itu saja):
+
+```sh
+mkdir -p /path/ke/proyek/.claude/skills
+cp -r .claude/skills/mazer-ui /path/ke/proyek/.claude/skills/
+```
+
+Atau pasang sebagai skill personal agar tersedia di semua proyek:
+
+```sh
+mkdir -p ~/.claude/skills
+cp -r .claude/skills/mazer-ui ~/.claude/skills/
+```
+
+Bisa juga langsung dari GitHub lewat CLI [`skills`](https://skills.sh) (mendukung Claude Code dan agent lain):
+
+```sh
+npx skills add alifbint/mazer --skill mazer-ui
+```
+
+Cek skill sudah terbaca dengan mengetik `/mazer-ui` di Claude Code. Setelah menyalin atau mengubah skill, mulai ulang sesi Claude Code bila skill belum muncul.
 
 ## Lisensi & kredit
 
